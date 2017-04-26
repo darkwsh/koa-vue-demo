@@ -44,6 +44,7 @@ devMiddleWare.waitUntilValid()
 
 app.get('*', (req, res) => {
   devMiddleWare.waitUntilValid(() => {
+    console.log(file)
     const html = mfs.readFileSync(file)
     res.end(html)
   })

@@ -1,5 +1,4 @@
 <template>
-  <div class="counter-wrapper">
   <el-row class="content">
     <el-col :xs="24" :sm="{span: 6,offset: 9}">
       <span class="title">
@@ -20,29 +19,27 @@
       </el-row>
     </el-col>
   </el-row>
-  </div>
 </template>
 
 <script>
 export default {
-  computed: {
-    count() {
-      return this.$store.state.count
-    }
+  data () {
+    return {
+      account: '',
+      password: ''
+    };
   }
-}
+};
 </script>
 
-<style>
-.counter {
-  margin: 100px auto;
-  border-radius: 3px;
-  width: 200px;
-  height: 200px;
-  text-align: center;
-  line-height: 200px;
-  font-size: 5rem;
-  background-color: #f0f0f0;
-  user-select: none;
-}
+<style lang="stylus" scoped>
+  .el-row.content
+    padding 16px
+  .title
+    font-size 28px
+  .el-input
+    margin 12px 0
+  .el-button
+    width 100%
+    margin-top 12px
 </style>

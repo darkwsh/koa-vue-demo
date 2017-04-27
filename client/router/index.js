@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../views/Home'
+import Login from '../components/Login'
+import TodoList from '../components/TodoList'
 
 Vue.use(Router)
 
@@ -9,7 +10,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Home
+      component: Login
+    },
+    {
+      path: '/todolist',
+      component: TodoList
+    },
+    {
+      path: '*',
+      redirect: '/' // 输入其他不存在的地址自动跳回首页
     }
   ]
 })

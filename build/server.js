@@ -2,13 +2,15 @@
 const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
-const express = require('express')
+const koa = require('koa')
+const logger  = require('koa-logger')
+const staticServer = require('koa-static')
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.dev')
 const config = require('./config')
 const LogPlugin = require('./log-plugin')
 
-const app = express()
+const app = koa();
 
 const port = config.port
 webpackConfig.entry.client = [
@@ -27,27 +29,20 @@ try {
   process.exit(1)
 }
 
-const devMiddleWare = require('webpack-dev-middleware')(compiler, {
+const devMiddleWare = require('koa-webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
 })
 app.use(devMiddleWare)
-app.use(require('webpack-hot-middleware')(compiler, {
+app.use(require('koa-webpack-hot-middleware')(compiler, {
   log: () => {}
 }))
 
 const mfs = devMiddleWare.fileSystem
-const file = path.join(webpackConfig.output.path, 'index.html')
-
+const file = path.join(webpackConfig.output.path, 'index.html');
 
 devMiddleWare.waitUntilValid()
 
-app.get('*', (req, res) => {
-  devMiddleWare.waitUntilValid(() => {
-    console.log(file)
-    const html = mfs.readFileSync(file)
-    res.end(html)
-  })
-})
+app.use(staticServer(path.join(__dirname, '../static/')))
 
 app.listen(port)

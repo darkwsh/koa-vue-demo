@@ -1,27 +1,25 @@
+<!-- APP.vue -->
+
 <template>
   <div id="app">
-    <router-view></router-view>
+    <img src="logo.png">
+    <router-view></router-view> <!-- 原本的Login换成了router-view 这就是路由视图渲染的目标元素-->
   </div>
 </template>
 
-<style>
-body {
-  margin: 0;
-  font-size: 2rem;
-  font-family: -apple-system, BlinkMacSystemFont,
-               'avenir next', avenir,
-               helvetica, 'helvetica neue',
-               Ubuntu,
-               'segoe ui', arial,
-               sans-serif;
+<script>
+export default {
+  name: 'app' // 不需要再引入`Login`\`TodoList`组件了，因为在路由里已经注册了
 }
-.page {
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* nesting for the need to test postcss */
-  code {
-    background-color: #f0f0f0;
-    padding: 3px 5px;
-    border-radius: 2px;
-  }
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
